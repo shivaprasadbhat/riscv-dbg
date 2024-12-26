@@ -4,12 +4,14 @@ set -e
 
 VERSION="af3a034b57279d2a400d87e7508c9a92254ec165"
 
+PWD=`pwd`
 mkdir -p $RISCV/
 cd $RISCV
 
 check_version() {
     $1 --version | awk "NR==1 {if (\$NF>$2) {exit 0} exit 1}" || (
 	echo $3 requires at least version $2 of $1. Aborting.
+	cd $PWD
 	exit 1
     )
 }
